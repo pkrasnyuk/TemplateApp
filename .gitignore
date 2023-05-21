@@ -1,0 +1,11 @@
+/.vscode
+/app/__pycache__/*.pyc
+/*.log
+/app/helpers/__pycache__/*.pyc
+/.hypothesis/unicode_data/14.0.0/*.gz
+/app/data_access_layer/__pycache__/*.pyc
+/app/data_access_layer/repository/__pycache__/*.pyc
+/app/data_transfer_objects/__pycache__/*.pyc
+/app/domain/__pycache__/*.pyc
+/app/service_layer/__pycache__/*.pyc
+/tests/__pycache__/*.pyc

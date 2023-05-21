@@ -1,0 +1,7 @@
+dependency_injector
+pre-commit
+py-automapper
+pydantic
+pyodbc
+pytz
+sqlalchemy
