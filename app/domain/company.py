@@ -1,8 +1,9 @@
 from pydantic import Field
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import WriteOnlyMapped, relationship  # type: ignore
 
 from app.domain.entity import DbEntity, Entity
+from app.domain.financials import DbFinancials
 
 
 class DbCompany(DbEntity):
@@ -12,7 +13,9 @@ class DbCompany(DbEntity):
     name = Column("Name", String(length=128), index=True)
     analyst = Column("Analyst", String(length=64))
 
-    financials = relationship("DbFinancials", back_populates="company", lazy=True)  # type: ignore
+    financials: WriteOnlyMapped[DbFinancials] = relationship(
+        "DbFinancials", back_populates="company", lazy=True
+    )  # type: ignore
 
     def __repr__(self):
         return self.name

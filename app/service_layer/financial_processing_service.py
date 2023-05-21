@@ -29,8 +29,8 @@ class FinancialProcessingService(DataProcessingService):
                 type=FinancialsType.ANNUAL,
                 dt=generate_datetime(year=2023, month=1, day=1),
                 label="financial_1",
-                price=0.0,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=0.0, total_price=0.0),
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=1.0),
             )
         )
         financials.append(
@@ -39,7 +39,7 @@ class FinancialProcessingService(DataProcessingService):
                 dt=generate_datetime(year=2023, month=2, day=1),
                 label="financial_2",
                 price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=None, total_price=None),
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=None),
             )
         )
         financials.append(
@@ -47,8 +47,71 @@ class FinancialProcessingService(DataProcessingService):
                 type=FinancialsType.ANNUAL,
                 dt=generate_datetime(year=2023, month=3, day=1),
                 label="financial_3",
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_4",
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_5",
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_6",
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_7",
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_8",
+                price=None,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_9",
                 price=10.0,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=5.0, total_price=10.0),
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
+            )
+        )
+        financials.append(
+            DtoFinancials(
+                type=FinancialsType.ANNUAL,
+                dt=generate_datetime(year=2023, month=3, day=1),
+                label="financial_10",
+                price=10.0,
+                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=6.0),
             )
         )
         processing_data.append(DtoCompanyInfo(company=company, financials=financials))
