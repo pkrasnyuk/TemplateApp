@@ -22,6 +22,7 @@ class DbFinancials(DbEntity):
     price = Column("Price", Float, nullable=True)
 
     company = relationship("DbCompany", back_populates="financials")  # type: ignore
+    derived_financials = relationship("DbDerivedFinancials", back_populates="financials", uselist=False)  # type: ignore
 
 
 class Financials(Entity):

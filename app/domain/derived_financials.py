@@ -2,10 +2,9 @@ from typing import Optional
 
 from pydantic import Field
 from sqlalchemy import Column, Float, ForeignKey, Integer
-from sqlalchemy.orm import backref, relationship
+from sqlalchemy.orm import relationship
 
 from app.domain.entity import DbEntity, Entity
-from app.domain.financials import DbFinancials
 
 
 class DbDerivedFinancials(DbEntity):
@@ -15,7 +14,7 @@ class DbDerivedFinancials(DbEntity):
     total_profit = Column("TotalProfit", Float, nullable=True)
     total_price = Column("TotalPrice", Float, nullable=True)
 
-    financials = relationship(DbFinancials, backref=backref("DerivedFinancials", uselist=False))
+    financials = relationship("DbFinancials", back_populates="derived_financials", uselist=False)  # type: ignore
 
 
 class DerivedFinancials(Entity):

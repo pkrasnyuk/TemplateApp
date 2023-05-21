@@ -1,4 +1,4 @@
-db_connection_string: "Driver={ODBC Driver 17 for SQL Server};Server=DESKTOP-AKTLEQ8;Database=sampledb;UID=s;PWD=klop09;Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;"
+db_connection_string: "Driver={ODBC Driver 17 for SQL Server};Server=DESKTOP-AKTLEQ8;Database=sampledb;UID=sa;PWD=klop09;Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;"
 log:
     version: 1
     disable_existing_loggers: no
