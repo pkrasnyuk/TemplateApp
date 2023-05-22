@@ -1,4 +1,6 @@
 import logging
+import random
+import time
 from typing import List
 
 from app.data_access_layer.repository.financials_repository import FinancialsRepository
@@ -22,98 +24,27 @@ class FinancialProcessingService(DataProcessingService):
     def processing(self) -> None:
         processing_data: List[DtoCompanyInfo] = []
 
-        company: DtoCompany = DtoCompany(name="company", analyst="analyst")
-        financials: List[DtoFinancials] = []
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=1, day=1),
-                label="financial_1",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=1.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.QUARTERLY,
-                dt=generate_datetime(year=2023, month=2, day=1),
-                label="financial_2",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=None),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_3",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_4",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_5",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_6",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_7",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_8",
-                price=None,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_9",
-                price=10.0,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=10.0),
-            )
-        )
-        financials.append(
-            DtoFinancials(
-                type=FinancialsType.ANNUAL,
-                dt=generate_datetime(year=2023, month=3, day=1),
-                label="financial_10",
-                price=10.0,
-                dto_derived_financials=DtoDerivedFinancials(total_profit=6.0, total_price=6.0),
-            )
-        )
-        processing_data.append(DtoCompanyInfo(company=company, financials=financials))
+        for i in range(300):
+            company: DtoCompany = DtoCompany(name=f"company_{i}", analyst=f"analyst_{random.randint(0, i)}")
+            financials: List[DtoFinancials] = []
+            for j in range(random.randint(10, 40)):
+                financials.append(
+                    DtoFinancials(
+                        type=FinancialsType.ANNUAL,
+                        dt=generate_datetime(year=2023, month=random.randint(1, 12), day=random.randint(1, 25)),
+                        label=f"financial_{j}",
+                        price=10.0 * j * random.random(),
+                        dto_derived_financials=DtoDerivedFinancials(
+                            total_profit=j * random.random(), total_price=100.0 * j * random.random()
+                        ),
+                    )
+                )
+            processing_data.append(DtoCompanyInfo(company=company, financials=financials))
 
-        return self.__financials_repository.bulk_save(items=processing_data)
+        start = time.time()
+        self.__financials_repository.bulk_save(items=processing_data)
+        end = time.time()
+        elapsed_time = end - start
+        self.__logger.info(f"Execution time: {elapsed_time} seconds")
+
+        return None
