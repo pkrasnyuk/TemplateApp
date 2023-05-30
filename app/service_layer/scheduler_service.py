@@ -4,6 +4,7 @@ from typing import Callable, List
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
+
 from app.service_layer.scheduler_job_wrapper import SchedulerJobWrapper
 from app.service_layer.slack_notification_service import SlackNotificationService
 

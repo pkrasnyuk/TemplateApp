@@ -1,6 +1,7 @@
 import logging
 import time
 from typing import List
+
 from app.data_access_layer.repository.financials_repository import FinancialsRepository
 from app.data_transfer_objects.dto_company_info import DtoCompanyInfo
 from app.service_layer.data_processing_service import DataProcessingService

@@ -5,7 +5,7 @@ slack:
   channel: "dev_test"
 financial_models_job:
   name: "financial models processing"
-  crontab: "57 10 * * *"
+  crontab: "22 15 * * *"
 log:
   version: 1
   disable_existing_loggers: no

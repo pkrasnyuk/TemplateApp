@@ -20,7 +20,7 @@ class FinancialModelsProcessingService(ProcessingService):
             for j in range(random.randint(10, 40)):
                 financials.append(
                     DtoFinancials(
-                        type=FinancialsType.ANNUAL,
+                        type=FinancialsType.ANNUAL if j % 2 == 0 else FinancialsType.QUARTERLY,
                         dt=generate_datetime(year=2023, month=random.randint(1, 12), day=random.randint(1, 25)),
                         label=f"financial_{j}",
                         price=10.0 * j * random.random(),
