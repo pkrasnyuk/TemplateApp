@@ -1,7 +1,9 @@
+apscheduler
 dependency_injector
 pre-commit
 py-automapper
 pydantic
 pyodbc
 pytz
+slack_sdk
 sqlalchemy

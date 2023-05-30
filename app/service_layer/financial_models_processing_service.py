@@ -1,27 +1,17 @@
-import logging
 import random
-import time
 from typing import List
 
-from app.data_access_layer.repository.financials_repository import FinancialsRepository
 from app.data_transfer_objects.dto_company import DtoCompany
 from app.data_transfer_objects.dto_company_info import DtoCompanyInfo
 from app.data_transfer_objects.dto_derived_financials import DtoDerivedFinancials
 from app.data_transfer_objects.dto_financials import DtoFinancials
 from app.domain.enums import FinancialsType
 from app.helpers.common import generate_datetime
-from app.service_layer.data_processing_service import DataProcessingService
+from app.service_layer.processing_service import ProcessingService
 
 
-class FinancialProcessingService(DataProcessingService):
-    def __init__(
-        self,
-        financials_repository: FinancialsRepository,
-    ):
-        self.__logger = logging.getLogger(f"{__name__}.{self.__class__.__name__}")
-        self.__financials_repository = financials_repository
-
-    def processing(self) -> None:
+class FinancialModelsProcessingService(ProcessingService):
+    def processing(self) -> List[DtoCompanyInfo]:
         processing_data: List[DtoCompanyInfo] = []
 
         for i in range(300):
@@ -41,10 +31,4 @@ class FinancialProcessingService(DataProcessingService):
                 )
             processing_data.append(DtoCompanyInfo(company=company, financials=financials))
 
-        start = time.time()
-        self.__financials_repository.bulk_save(items=processing_data)
-        end = time.time()
-        elapsed_time = end - start
-        self.__logger.info(f"Execution time: {elapsed_time} seconds")
-
-        return None
+        return processing_data

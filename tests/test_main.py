@@ -6,7 +6,8 @@ from pytest import raises
 
 from app.__main__ import main
 from app.helpers.app_handlers import AppHandlers
-from app.service_layer.data_processing_service import DataProcessingService
+from app.service_layer.scheduler_service import SchedulerService
+from app.service_layer.slack_notification_service import SlackNotificationService
 
 
 class TestMain(TestCase):
@@ -25,5 +26,13 @@ class TestMain(TestCase):
         self.assertIsNone(main(handlers=Any, scheduler_service=Any))
 
     def test_main_2(self):
-        with patch.object(DataProcessingService, "processing", side_effect=SystemExit), raises(SystemExit):
-            main(handlers=AppHandlers(), service=DataProcessingService())
+        with patch.object(SchedulerService, "run", side_effect=SystemExit), raises(SystemExit):
+            main(
+                handlers=AppHandlers(),
+                scheduler_service=SchedulerService(
+                    scheduler_job_wrappers=[],
+                    notification_service=SlackNotificationService(
+                        webhook_url="https://hooks.slack.com/services/Test", token="test_token", channel="test_channel"
+                    ),
+                ),
+            )

@@ -14,13 +14,20 @@ from app.data_transfer_objects.dto_financials import DtoFinancials
 from app.domain.company import Company, DbCompany
 from app.domain.derived_financials import DbDerivedFinancials, DerivedFinancials
 from app.domain.financials import DbFinancials, Financials
+from app.domain.scheduler_job import SchedulerJob
 from app.helpers.app_handlers import AppHandlers
-from app.service_layer.financial_processing_service import FinancialProcessingService
+from app.service_layer.financial_models_data_processing_service import FinancialModelsDataProcessingService
+from app.service_layer.financial_models_processing_service import FinancialModelsProcessingService
+from app.service_layer.scheduler_job_wrapper import SchedulerJobWrapper
+from app.service_layer.scheduler_service import SchedulerService
+from app.service_layer.slack_notification_service import SlackNotificationService
 
 
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
     config.from_yaml(filepath=os.path.dirname(__file__) + "/config.yaml", required=True)
+
+    slack_config = config.slack()
 
     logging = providers.Resource(logging.config.dictConfig, config=config.log())
 
@@ -42,7 +49,35 @@ class Container(containers.DeclarativeContainer):
     financials_repository = providers.Factory(FinancialsRepository, session_factory=db.provided.session)
     derived_financials_repository = providers.Factory(DerivedFinancialsRepository, session_factory=db.provided.session)
 
-    financial_processing_service = providers.Factory(
-        FinancialProcessingService,
+    slack_notification_service = providers.Singleton(
+        SlackNotificationService,
+        webhook_url=slack_config["webhook_url"],
+        token=slack_config["token"],
+        channel=slack_config["channel"],
+    )
+
+    scheduler_job_wrapper_providers_list = providers.List()
+    financial_models_job_config = config.financial_models_job()
+
+    financial_models_processing_service = providers.Factory(
+        FinancialModelsProcessingService,
+    )
+    financial_models_data_processing_service = providers.Factory(
+        FinancialModelsDataProcessingService,
         financials_repository=financials_repository,
+    )
+    scheduler_job_wrapper_providers_list.add_args(
+        providers.Factory(
+            SchedulerJobWrapper,
+            job=SchedulerJob(name=financial_models_job_config["name"], crontab=financial_models_job_config["crontab"]),
+            processing_service=financial_models_processing_service,
+            data_processing_service=financial_models_data_processing_service,
+            notification_service=slack_notification_service,
+        )
+    )
+
+    scheduler_service = providers.Factory(
+        SchedulerService,
+        scheduler_job_wrappers=scheduler_job_wrapper_providers_list,
+        notification_service=slack_notification_service,
     )

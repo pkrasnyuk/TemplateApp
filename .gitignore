@@ -9,3 +9,4 @@
 /app/domain/__pycache__/*.pyc
 /app/service_layer/__pycache__/*.pyc
 /tests/__pycache__/*.pyc
+/*.coverage

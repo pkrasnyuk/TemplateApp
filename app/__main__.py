@@ -2,15 +2,14 @@ from signal import SIGINT, signal
 
 from app.containers import Container
 from app.helpers.app_handlers import AppHandlers
-from app.service_layer.data_processing_service import DataProcessingService
+from app.service_layer.scheduler_service import SchedulerService
 
 
-def main(handlers: AppHandlers, service: DataProcessingService) -> None:
+def main(handlers: AppHandlers, scheduler_service: SchedulerService) -> None:
     signal(SIGINT, __handler)
 
     handlers.init_global_handler()
-
-    service.processing()
+    scheduler_service.run()
 
     print("The template app is working. \r\n" "Press CTRL+C to quit.")
     while True:
@@ -27,4 +26,4 @@ if __name__ == "__main__":
     container.init_resources()
     container.wire(modules=[__name__])
 
-    main(handlers=container.handlers(), service=container.financial_processing_service())
+    main(handlers=container.handlers(), scheduler_service=container.scheduler_service())
