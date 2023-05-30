@@ -31,8 +31,6 @@ class Container(containers.DeclarativeContainer):
 
     logging = providers.Resource(logging.config.dictConfig, config=config.log())
 
-    handlers = providers.Singleton(AppHandlers)
-
     db = providers.Singleton(Database, connection_string=config.db_connection_string())
 
     mapper.add(DbCompany, Company)
@@ -54,6 +52,11 @@ class Container(containers.DeclarativeContainer):
         webhook_url=slack_config["webhook_url"],
         token=slack_config["token"],
         channel=slack_config["channel"],
+    )
+
+    handlers = providers.Singleton(
+        AppHandlers,
+        notification_service=slack_notification_service,
     )
 
     scheduler_job_wrapper_providers_list = providers.List()

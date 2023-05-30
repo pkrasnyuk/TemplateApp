@@ -12,7 +12,9 @@ from app.service_layer.slack_notification_service import SlackNotificationServic
 
 class TestMain(TestCase):
     def setUp(self):
-        pass
+        self.__notification_service = SlackNotificationService(
+            webhook_url="https://hooks.slack.com/services/Test", token="test_token", channel="test_channel"
+        )
 
     def tearDown(self):
         pass
@@ -28,11 +30,9 @@ class TestMain(TestCase):
     def test_main_2(self):
         with patch.object(SchedulerService, "run", side_effect=SystemExit), raises(SystemExit):
             main(
-                handlers=AppHandlers(),
+                handlers=AppHandlers(notification_service=self.__notification_service),
                 scheduler_service=SchedulerService(
                     scheduler_job_wrappers=[],
-                    notification_service=SlackNotificationService(
-                        webhook_url="https://hooks.slack.com/services/Test", token="test_token", channel="test_channel"
-                    ),
+                    notification_service=self.__notification_service,
                 ),
             )
