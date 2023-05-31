@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from bson.objectid import ObjectId
 from pydantic import BaseConfig, BaseModel, Field
+
 from core.domain.py_object_id import PyObjectId
 
 
