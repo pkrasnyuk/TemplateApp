@@ -5,9 +5,9 @@ from unittest.mock import patch
 from pytest import raises
 
 from app.__main__ import main
-from app.helpers.app_handlers import AppHandlers
 from app.service_layer.scheduler_service import SchedulerService
-from app.service_layer.slack_notification_service import SlackNotificationService
+from core.helpers.app_handlers import AppHandlers
+from core.service_layer.slack_notification_service import SlackNotificationService
 
 
 class TestMain(TestCase):

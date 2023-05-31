@@ -2,8 +2,8 @@ import json
 
 from pydantic import BaseModel
 
-from app.domain.entity import DbEntity
-from app.helpers.common import default_json_dumps
+from core.domain.entity import DbEntity
+from core.helpers.common import default_json_dumps
 
 
 class DtoEntity(BaseModel):

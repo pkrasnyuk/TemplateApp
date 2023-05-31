@@ -2,9 +2,9 @@ from typing import List
 
 from pydantic import Field
 
-from app.data_transfer_objects.dto_entity import DtoEntity
 from app.data_transfer_objects.dto_financials import DtoFinancials
-from app.domain.company import DbCompany
+from core.data_transfer_objects.dto_entity import DtoEntity
+from core.domain.company import DbCompany
 
 
 class DtoCompany(DtoEntity):

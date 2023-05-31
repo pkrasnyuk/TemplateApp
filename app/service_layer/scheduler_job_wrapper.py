@@ -1,11 +1,11 @@
 import logging
 from typing import List
 
-from app.data_transfer_objects.dto_entity import DtoEntity
-from app.domain.scheduler_job import SchedulerJob
 from app.service_layer.data_processing_service import DataProcessingService
 from app.service_layer.processing_service import ProcessingService
-from app.service_layer.slack_notification_service import SlackNotificationService
+from core.data_transfer_objects.dto_entity import DtoEntity
+from core.domain.scheduler_job import SchedulerJob
+from core.service_layer.slack_notification_service import SlackNotificationService
 
 
 class SchedulerJobWrapper:

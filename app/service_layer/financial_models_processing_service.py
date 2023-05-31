@@ -5,9 +5,9 @@ from app.data_transfer_objects.dto_company import DtoCompany
 from app.data_transfer_objects.dto_company_info import DtoCompanyInfo
 from app.data_transfer_objects.dto_derived_financials import DtoDerivedFinancials
 from app.data_transfer_objects.dto_financials import DtoFinancials
-from app.domain.enums import FinancialsType
-from app.helpers.common import generate_datetime
 from app.service_layer.processing_service import ProcessingService
+from core.domain.enums import FinancialsType
+from core.helpers.common import generate_datetime
 
 
 class FinancialModelsProcessingService(ProcessingService):

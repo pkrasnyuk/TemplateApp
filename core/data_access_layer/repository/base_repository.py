@@ -7,8 +7,8 @@ from sqlalchemy.engine.row import Row
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import TextClause
 
-from app.data_transfer_objects.dto_entity import DtoEntity
-from app.domain.entity import DbEntity
+from core.data_transfer_objects.dto_entity import DtoEntity
+from core.domain.entity import DbEntity
 
 
 class BaseRepository:

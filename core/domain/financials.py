@@ -6,8 +6,8 @@ from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.dialects.mssql import DATETIMEOFFSET
 from sqlalchemy.orm import relationship
 
-from app.domain.entity import DbEntity, Entity
-from app.domain.enums import FinancialsType
+from core.domain.entity import DbEntity, Entity
+from core.domain.enums import FinancialsType
 
 
 class DbFinancials(DbEntity):

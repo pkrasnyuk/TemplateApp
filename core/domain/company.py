@@ -2,8 +2,8 @@ from pydantic import Field
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import WriteOnlyMapped, relationship  # type: ignore
 
-from app.domain.entity import DbEntity, Entity
-from app.domain.financials import DbFinancials
+from core.domain.entity import DbEntity, Entity
+from core.domain.financials import DbFinancials
 
 
 class DbCompany(DbEntity):

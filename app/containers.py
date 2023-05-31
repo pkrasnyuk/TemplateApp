@@ -4,23 +4,23 @@ import os
 from automapper import mapper
 from dependency_injector import containers, providers
 
-from app.data_access_layer.database import Database
 from app.data_access_layer.repository.company_repository import CompanyRepository
 from app.data_access_layer.repository.derived_financials_repository import DerivedFinancialsRepository
 from app.data_access_layer.repository.financials_repository import FinancialsRepository
 from app.data_transfer_objects.dto_company import DtoCompany
 from app.data_transfer_objects.dto_derived_financials import DtoDerivedFinancials
 from app.data_transfer_objects.dto_financials import DtoFinancials
-from app.domain.company import Company, DbCompany
-from app.domain.derived_financials import DbDerivedFinancials, DerivedFinancials
-from app.domain.financials import DbFinancials, Financials
-from app.domain.scheduler_job import SchedulerJob
-from app.helpers.app_handlers import AppHandlers
 from app.service_layer.financial_models_data_processing_service import FinancialModelsDataProcessingService
 from app.service_layer.financial_models_processing_service import FinancialModelsProcessingService
 from app.service_layer.scheduler_job_wrapper import SchedulerJobWrapper
 from app.service_layer.scheduler_service import SchedulerService
-from app.service_layer.slack_notification_service import SlackNotificationService
+from core.data_access_layer.database import Database
+from core.domain.company import Company, DbCompany
+from core.domain.derived_financials import DbDerivedFinancials, DerivedFinancials
+from core.domain.financials import DbFinancials, Financials
+from core.domain.scheduler_job import SchedulerJob
+from core.helpers.app_handlers import AppHandlers
+from core.service_layer.slack_notification_service import SlackNotificationService
 
 
 class Container(containers.DeclarativeContainer):

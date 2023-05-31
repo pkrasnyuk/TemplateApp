@@ -2,8 +2,8 @@ from typing import Optional
 
 from pydantic import Field
 
-from app.data_transfer_objects.dto_entity import DtoEntity
-from app.domain.derived_financials import DbDerivedFinancials
+from core.data_transfer_objects.dto_entity import DtoEntity
+from core.domain.derived_financials import DbDerivedFinancials
 
 
 class DtoDerivedFinancials(DtoEntity):

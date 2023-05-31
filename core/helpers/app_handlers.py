@@ -2,7 +2,7 @@ import logging
 import sys
 import traceback
 
-from app.service_layer.slack_notification_service import SlackNotificationService
+from core.service_layer.slack_notification_service import SlackNotificationService
 
 
 class AppHandlers:

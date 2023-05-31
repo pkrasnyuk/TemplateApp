@@ -4,10 +4,10 @@ from typing import Optional
 from pydantic import Field
 
 from app.data_transfer_objects.dto_derived_financials import DtoDerivedFinancials
-from app.data_transfer_objects.dto_entity import DtoEntity
-from app.domain.enums import FinancialsType
-from app.domain.financials import DbFinancials
-from app.helpers.common import value2str
+from core.data_transfer_objects.dto_entity import DtoEntity
+from core.domain.enums import FinancialsType
+from core.domain.financials import DbFinancials
+from core.helpers.common import value2str
 
 
 class DtoFinancials(DtoEntity):

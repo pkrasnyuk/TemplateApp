@@ -1,6 +1,6 @@
 from typing import List
 
-from app.data_transfer_objects.dto_entity import DtoEntity
+from core.data_transfer_objects.dto_entity import DtoEntity
 
 
 class DataProcessingService:

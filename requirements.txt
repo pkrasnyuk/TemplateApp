@@ -1,5 +1,6 @@
 apscheduler
 dependency_injector
+fastapi
 pre-commit
 py-automapper
 pydantic
@@ -7,3 +8,4 @@ pyodbc
 pytz
 slack_sdk
 sqlalchemy
+uvicorn[standard]

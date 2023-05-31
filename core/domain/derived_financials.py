@@ -4,7 +4,7 @@ from pydantic import Field
 from sqlalchemy import Column, Float, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from app.domain.entity import DbEntity, Entity
+from core.domain.entity import DbEntity, Entity
 
 
 class DbDerivedFinancials(DbEntity):

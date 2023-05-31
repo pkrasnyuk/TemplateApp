@@ -6,12 +6,12 @@ from typing import Callable, List, Optional
 from automapper import mapper
 from sqlalchemy.orm import Session
 
-from app.data_access_layer.repository.base_repository import BaseRepository
 from app.data_transfer_objects.dto_company_info import DtoCompanyInfo
-from app.domain.company import DbCompany
-from app.domain.derived_financials import DbDerivedFinancials
-from app.domain.financials import DbFinancials, Financials
-from app.helpers.common import date2datetime
+from core.data_access_layer.repository.base_repository import BaseRepository
+from core.domain.company import DbCompany
+from core.domain.derived_financials import DbDerivedFinancials
+from core.domain.financials import DbFinancials, Financials
+from core.helpers.common import date2datetime
 
 
 class FinancialsRepository(BaseRepository):

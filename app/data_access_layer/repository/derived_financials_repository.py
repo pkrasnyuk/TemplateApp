@@ -3,8 +3,8 @@ from typing import Callable
 
 from sqlalchemy.orm import Session
 
-from app.data_access_layer.repository.base_repository import BaseRepository
-from app.domain.derived_financials import DbDerivedFinancials
+from core.data_access_layer.repository.base_repository import BaseRepository
+from core.domain.derived_financials import DbDerivedFinancials
 
 
 class DerivedFinancialsRepository(BaseRepository):

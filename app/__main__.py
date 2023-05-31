@@ -1,8 +1,8 @@
 from signal import SIGINT, signal
 
 from app.containers import Container
-from app.helpers.app_handlers import AppHandlers
 from app.service_layer.scheduler_service import SchedulerService
+from core.helpers.app_handlers import AppHandlers
 
 
 def main(handlers: AppHandlers, scheduler_service: SchedulerService) -> None:
