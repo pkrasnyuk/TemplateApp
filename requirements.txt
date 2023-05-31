@@ -4,6 +4,7 @@ fastapi
 pre-commit
 py-automapper
 pydantic
+pymongo
 pyodbc
 pytz
 slack_sdk
