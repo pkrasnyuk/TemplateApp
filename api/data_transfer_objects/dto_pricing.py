@@ -22,11 +22,11 @@ class DtoPricing(DtoEntity):
             date.fromisoformat(values["date"])
         except ValueError:
             raise ValueError("incorrect date format for date field, should be YYYY-MM-dd")
-        
+
         if "level" not in values or values["level"] is None:
             raise ValueError("a level value must be specified")
-        
+
         if "pricing" not in values or values["pricing"] is None:
             raise ValueError("a pricing value must be specified")
-        
+
         return values
