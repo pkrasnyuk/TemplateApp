@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseConfig, BaseModel
 from sqlalchemy.orm import DeclarativeBase  # type: ignore
 
@@ -7,7 +9,7 @@ class DbEntity(DeclarativeBase):
 
 
 class Entity(BaseModel):
-    id: int
+    id: Optional[int]
 
     class Config(BaseConfig):
         allow_population_by_field_name = True

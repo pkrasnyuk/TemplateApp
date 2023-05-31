@@ -3,14 +3,14 @@ from typing import Callable, List, Optional
 
 from sqlalchemy.orm import Session
 
-from core.data_access_layer.repository.base_repository import BaseRepository
 from api.data_transfer_objects.dto_user import DtoUser
+from core.data_access_layer.repository.base_repository import BaseRepository
 from core.domain.user import DbUser
 
 
 class UserRepository(BaseRepository):
     def __init__(self, session_factory: Callable[..., AbstractContextManager[Session]]):
-        super().__init__(session_factory=session_factory, db_model=DbUser)
+        super().__init__(session_factory=session_factory, db_model=DbUser)  # type: ignore
 
     def create(self, item: DtoUser) -> None:
         return super().create(item)

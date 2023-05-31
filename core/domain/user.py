@@ -12,9 +12,11 @@ class DbUser(DbEntity):
     name = Column("Name", String(length=32), index=True)
     api_key = Column("ApiKey", String(length=64), index=True)
 
+    pricings = relationship("DbPricing", back_populates="user", lazy=True)  # type: ignore
+
     def __repr__(self):
         return self.name
-    
+
 
 class User(Entity):
     name: str = Field(max_length=32)
