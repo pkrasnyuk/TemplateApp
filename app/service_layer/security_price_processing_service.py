@@ -10,7 +10,7 @@ class SecurityPriceProcessingService(ProcessingService):
     def processing(self) -> List[DtoSecurityPrice]:
         processing_data: List[DtoSecurityPrice] = []
 
-        for i in range(300):
+        for i in range(10000):
             processing_data.append(
                 DtoSecurityPrice(
                     date=generate_datetime(year=2023, month=random.randint(1, 12), day=random.randint(1, 28)),
