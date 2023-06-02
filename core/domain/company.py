@@ -13,9 +13,7 @@ class DbCompany(DbEntity):
     name = Column("Name", String(length=128), index=True)
     analyst = Column("Analyst", String(length=64))
 
-    financials: WriteOnlyMapped[DbFinancials] = relationship(
-        "DbFinancials", back_populates="company", lazy=True
-    )  # type: ignore
+    financials: WriteOnlyMapped[DbFinancials] = relationship("DbFinancials", back_populates="company", lazy=True)
 
     def __repr__(self):
         return self.name

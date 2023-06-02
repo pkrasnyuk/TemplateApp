@@ -9,6 +9,9 @@ slack:
 financial_models_job:
   name: "financial models processing"
   crontab: "39 7 * * *"
+security_prices_job:
+  name: "security_prices processing"
+  crontab: "51 10 * * *"
 log:
   version: 1
   disable_existing_loggers: no
