@@ -11,6 +11,7 @@ from app.data_access_layer.repository.security_price_repository import SecurityP
 from app.data_transfer_objects.dto_company import DtoCompany
 from app.data_transfer_objects.dto_derived_financials import DtoDerivedFinancials
 from app.data_transfer_objects.dto_financials import DtoFinancials
+from app.data_transfer_objects.dto_order import DtoOrder
 from app.data_transfer_objects.dto_security_price import DtoSecurityPrice
 from app.service_layer.financial_models_data_processing_service import FinancialModelsDataProcessingService
 from app.service_layer.financial_models_processing_service import FinancialModelsProcessingService
@@ -23,6 +24,7 @@ from core.data_access_layer.mongo_database import MongoDatabase
 from core.domain.company import Company, DbCompany
 from core.domain.derived_financials import DbDerivedFinancials, DerivedFinancials
 from core.domain.financials import DbFinancials, Financials
+from core.domain.order import Order
 from core.domain.scheduler_job import SchedulerJob
 from core.domain.security_price import SecurityPrice
 from core.helpers.app_handlers import AppHandlers
@@ -50,6 +52,7 @@ class Container(containers.DeclarativeContainer):
     mapper.add(DbDerivedFinancials, DerivedFinancials)
     mapper.add(DerivedFinancials, DbDerivedFinancials)
     mapper.add(DtoDerivedFinancials, DbDerivedFinancials)
+    mapper.add(DtoOrder, Order)
     mapper.add(DtoSecurityPrice, SecurityPrice)
 
     company_repository = providers.Factory(CompanyRepository, session_factory=db.provided.session)

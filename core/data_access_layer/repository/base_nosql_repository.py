@@ -1,4 +1,4 @@
-from contextlib import AbstractContextManager, contextmanager
+from contextlib import AbstractContextManager
 from typing import Any, Callable, List, Optional
 
 from bson.objectid import ObjectId
@@ -11,7 +11,7 @@ class BaseNoSqlRepository:
     def __init__(
         self, mongo_client: Callable[..., AbstractContextManager[MongoClient]], db_name: str, collection_name: str
     ):
-        self.__client = contextmanager(mongo_client)  # type: ignore
+        self.__client = mongo_client
         with self.__client() as db_client:
             db = db_client[db_name]
 
@@ -27,24 +27,27 @@ class BaseNoSqlRepository:
             self.collection = db[collection_name]
             self.entity = MongoEntity
 
-    def __convert(self, item: Any) -> Optional[MongoEntity]:
+    def _client(self) -> MongoClient:
+        return self.__client()
+
+    def _convert(self, item: Any) -> Optional[MongoEntity]:
         return self.entity(**item) if item is not None else None
 
-    def __convert_many(self, items: Any) -> List[MongoEntity]:
+    def _convert_many(self, items: Any) -> List[MongoEntity]:
         result: List[MongoEntity] = []
         for item in items:
-            entity: Optional[MongoEntity] = self.__convert(item)
+            entity: Optional[MongoEntity] = self._convert(item)
             if entity is not None:
                 result.append(entity)
         return result
 
     def _get_collection(self) -> List[MongoEntity]:
-        return self.__convert_many(self.collection.find())
+        return self._convert_many(self.collection.find())
 
     def _insert_document(self, doc: MongoEntity) -> Optional[MongoEntity]:
         document_id = self.collection.insert_one(doc.dict(by_alias=True)).inserted_id
         doc = self.collection.find_one({"_id": document_id})
-        return self.__convert(doc)
+        return self._convert(doc)
 
     def _insert_documents(self, docs: List[MongoEntity]) -> List[MongoEntity]:
         docs_dict = []
@@ -55,10 +58,10 @@ class BaseNoSqlRepository:
 
     def _read_document_by_id(self, id: str) -> Optional[MongoEntity]:
         doc = self.collection.find_one({"_id": ObjectId(id)})
-        return self.__convert(doc)
+        return self._convert(doc)
 
     def _read_documents(self, condition) -> List[MongoEntity]:
-        return self.__convert_many(self.collection.find(condition))
+        return self._convert_many(self.collection.find(condition))
 
     def _update_document(self, doc: MongoEntity) -> Optional[MongoEntity]:
         self.collection.update_one({"_id": ObjectId(doc.id)}, {"$set": doc.dict(by_alias=True)})
