@@ -1,5 +1,7 @@
 from typing import List
+
 from pydantic import Field
+
 from app.data_transfer_objects.dto_order import DtoOrder
 from app.data_transfer_objects.dto_security_price import DtoSecurityPrice
 from core.data_transfer_objects.dto_entity import DtoEntity
