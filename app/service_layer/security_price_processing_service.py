@@ -12,7 +12,7 @@ class SecurityPriceProcessingService(ProcessingService):
     def processing(self) -> List[DtoOrderInfo]:
         processing_data: List[DtoOrderInfo] = []
 
-        for i in range(300):
+        for i in range(random.randint(200, 400)):
             order: DtoOrder = DtoOrder(
                 label=f"label_{i}",
                 date=generate_datetime(year=2023, month=random.randint(1, 12), day=random.randint(1, 28)),

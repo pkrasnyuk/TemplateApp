@@ -14,7 +14,7 @@ class FinancialModelsProcessingService(ProcessingService):
     def processing(self) -> List[DtoCompanyInfo]:
         processing_data: List[DtoCompanyInfo] = []
 
-        for i in range(300):
+        for i in range(random.randint(200, 400)):
             company: DtoCompany = DtoCompany(name=f"company_{i}", analyst=f"analyst_{random.randint(0, i)}")
             financials: List[DtoFinancials] = []
             for j in range(random.randint(10, 40)):

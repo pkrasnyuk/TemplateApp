@@ -8,10 +8,10 @@ slack:
   channel: "dev_test"
 financial_models_job:
   name: "financial models processing"
-  crontab: "30 6 * * *"
+  crontab: "55 7 * * *"
 security_prices_job:
   name: "security_prices processing"
-  crontab: "30 6 * * *"
+  crontab: "55 7 * * *"
 log:
   version: 1
   disable_existing_loggers: no

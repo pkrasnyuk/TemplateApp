@@ -188,7 +188,7 @@ class SecurityPriceRepository(BaseNoSqlRepository):
                             {"_id": existing_order.id}, {"$set": existing_order.dict(by_alias=True)}
                         )
                         update_result += 1
-                    info_message = f"The {update_result} security prices data from "
+                    info_message = f"The {update_result} orders data from "
                     info_message += f"{len(existing_orders)} has updated in database."
                     self.__logger.info(info_message)
 
