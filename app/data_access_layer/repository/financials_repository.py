@@ -30,6 +30,7 @@ class FinancialsRepository(BaseRepository):
         with self.session_factory() as session:
             last_updated: datetime = datetime.utcnow()
             db_companies: List[DbCompany] = session.query(DbCompany).order_by(DbCompany.name).all()
+            removed_companies: List[int] = [x.id for x in db_companies]
             for item in items:
                 if item is not None and item.company is not None and item.company.name:
                     db_company: Optional[DbCompany] = next(
@@ -59,6 +60,7 @@ class FinancialsRepository(BaseRepository):
                         )
                         session.add(new_company)
                     else:
+                        removed_companies.remove(db_company.id)
                         if not item.company._is_identical_to_db_entity(entity=db_company):
                             session.bulk_update_mappings(
                                 DbCompany,
@@ -193,5 +195,33 @@ class FinancialsRepository(BaseRepository):
                             info_message = f"The {len(existing_derived_financials)} derived financials data"
                             info_message += f" for company '{item.company.name}' has updated in database."
                             self.__logger.info(info_message)
+
+            if len(removed_companies) > 0:
+                db_company_financials = (
+                    session.query(DbFinancials).filter(DbFinancials.company_id.in_(removed_companies)).all()
+                )
+                if len(db_company_financials) > 0:
+                    db_company_financials_ids = [x.id for x in db_company_financials]
+
+                    delete_result = (
+                        session.query(DbDerivedFinancials)
+                        .filter(DbDerivedFinancials.id.in_(db_company_financials_ids))
+                        .delete()
+                    )
+                    info_message = f"The {delete_result} derived financials data from "
+                    info_message += f"{len(db_company_financials_ids)} has deleted from database."
+                    self.__logger.info(info_message)
+
+                    delete_result = (
+                        session.query(DbFinancials).filter(DbFinancials.id.in_(db_company_financials_ids)).delete()
+                    )
+                    info_message = f"The {delete_result} financials data from "
+                    info_message += f"{len(db_company_financials_ids)} has deleted from database."
+                    self.__logger.info(info_message)
+
+                delete_result = session.query(DbCompany).filter(DbCompany.id.in_(removed_companies)).delete()
+                info_message = f"The {delete_result} companies data from "
+                info_message += f"{len(removed_companies)} has deleted from database."
+                self.__logger.info(info_message)
 
             return None
