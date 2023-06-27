@@ -4,7 +4,7 @@ from typing import Any
 import pytz
 
 
-def defaut_epsilon() -> float:
+def default_epsilon() -> float:
     return 1e-6
 
 
@@ -12,7 +12,7 @@ def default_float_digits() -> int:
     return 4
 
 
-def defaut_float_format() -> str:
+def default_float_format() -> str:
     return "{:." + str(default_float_digits()) + "f}"
 
 
@@ -20,7 +20,7 @@ def default_date_format() -> str:
     return "%Y-%m-%d"
 
 
-def defaut_string_length() -> int:
+def default_string_length() -> int:
     return 10
 
 
@@ -45,10 +45,10 @@ def reduced_string(string: str, length: int) -> str:
 
 def value2str(
     value: Any,
-    epsilon: float = defaut_epsilon(),
-    float_format=defaut_float_format(),
+    epsilon: float = default_epsilon(),
+    float_format=default_float_format(),
     date_format=default_date_format(),
-    string_length: int = defaut_string_length(),
+    string_length: int = default_string_length(),
 ) -> str:
     if value is None:
         return ""
@@ -77,7 +77,7 @@ def is_value_empty(value: Any) -> bool:
         return True
     if isinstance(value, str) and value == "":
         return True
-    if isinstance(value, float) and abs(value) < defaut_epsilon():
+    if isinstance(value, float) and abs(value) < default_epsilon():
         return True
     if isinstance(value, datetime) and value < min_datetime():
         return True

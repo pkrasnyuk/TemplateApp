@@ -17,14 +17,14 @@ class PricingService:
 
     def request_processing(self, entities: List[DtoPricing], user_id: int) -> None:
         not_unique_request_ids: List[UUID] = []
-        pricings: List[Pricing] = []
+        pricing_list: List[Pricing] = []
         if entities is not None and len(entities) > 0:
             ts_value: datetime = pytz.utc.localize(datetime.now())
             for entity in entities:
                 if self.__repository.get_pricing(request_id=entity.request_id, user_id=user_id) is not None:
                     not_unique_request_ids.append(entity.request_id)
                 else:
-                    pricings.append(
+                    pricing_list.append(
                         mapper.to(Pricing).map(
                             entity,
                             fields_mapping={
@@ -39,4 +39,4 @@ class PricingService:
             ids = ", ".join([str(x) for x in not_unique_request_ids])
             raise Exception(f"The pricing request ids=[{ids}] are not unique (used in previous requests).")
         else:
-            return self.__repository.bulk_save(entities=pricings)
+            return self.__repository.bulk_save(entities=pricing_list)

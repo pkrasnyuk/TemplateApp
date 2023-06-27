@@ -19,7 +19,7 @@ class FinancialsRepository(BaseRepository):
         super().__init__(session_factory=session_factory, db_model=DbFinancials)  # type: ignore
         self.__logger = logging.getLogger(f"{__name__}.{self.__class__.__name__}")
 
-    def _conver_from_db_model(self, db_entity: DbFinancials):
+    def _convert_from_db_model(self, db_entity: DbFinancials):
         return (
             mapper.to(Financials).map(db_entity, fields_mapping={"dt": date2datetime(db_entity.dt)})
             if db_entity is not None and db_entity.dt is not None and isinstance(db_entity.dt, (date, datetime))
@@ -83,7 +83,7 @@ class FinancialsRepository(BaseRepository):
                         if item.financials is not None and len(item.financials) > 0:
                             for fitem in item.financials:
                                 if fitem is not None:
-                                    db_company_financy: Optional[DbFinancials] = next(
+                                    db_company_finance: Optional[DbFinancials] = next(
                                         (
                                             x
                                             for x in db_company_financials
@@ -93,7 +93,7 @@ class FinancialsRepository(BaseRepository):
                                         ),
                                         None,
                                     )
-                                    if db_company_financy is None:
+                                    if db_company_finance is None:
                                         financials = mapper.to(DbFinancials).map(
                                             fitem,
                                             fields_mapping={
@@ -109,42 +109,42 @@ class FinancialsRepository(BaseRepository):
                                             )
                                         new_financials.append(financials)
                                     else:
-                                        removed_financials.remove(db_company_financy.id)
-                                        if not fitem._is_identical_to_db_entity(entity=db_company_financy):
+                                        removed_financials.remove(db_company_finance.id)
+                                        if not fitem._is_identical_to_db_entity(entity=db_company_finance):
                                             existing_financials.append(
                                                 mapper.to(DbFinancials).map(
                                                     fitem,
                                                     fields_mapping={
-                                                        "id": db_company_financy.id,
+                                                        "id": db_company_finance.id,
                                                         "company_id": db_company.id,
                                                         "last_updated": last_updated,
                                                     },
                                                 )
                                             )
                                         if fitem.dto_derived_financials is not None:
-                                            db_company_derived_financy: Optional[DbDerivedFinancials] = next(
+                                            db_company_derived_finance: Optional[DbDerivedFinancials] = next(
                                                 (
                                                     x
                                                     for x in db_company_derived_financials
-                                                    if x.id == db_company_financy.id
+                                                    if x.id == db_company_finance.id
                                                 ),
                                                 None,
                                             )
-                                            if db_company_derived_financy is None:
+                                            if db_company_derived_finance is None:
                                                 new_derived_financials.append(
                                                     mapper.to(DbDerivedFinancials).map(
                                                         fitem.dto_derived_financials,
-                                                        fields_mapping={"id": db_company_financy.id},
+                                                        fields_mapping={"id": db_company_finance.id},
                                                     )
                                                 )
                                             else:
                                                 if not fitem.dto_derived_financials._is_identical_to_db_entity(
-                                                    entity=db_company_derived_financy
+                                                    entity=db_company_derived_finance
                                                 ):
                                                     existing_derived_financials.append(
                                                         mapper.to(DbDerivedFinancials).map(
                                                             fitem.dto_derived_financials,
-                                                            fields_mapping={"id": db_company_financy.id},
+                                                            fields_mapping={"id": db_company_finance.id},
                                                         )
                                                     )
                         if len(removed_financials) > 0:

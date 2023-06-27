@@ -23,7 +23,7 @@ class BaseRepository:
     def _convert_to_db_model(self, entity: BaseModel):
         return mapper.map(entity) if entity is not None else None
 
-    def _conver_from_db_model(self, db_entity: DbEntity):
+    def _convert_from_db_model(self, db_entity: DbEntity):
         return mapper.map(db_entity) if db_entity is not None else None
 
     def _convert_many_to_db_model(self, entities: List[BaseModel]):
@@ -35,16 +35,16 @@ class BaseRepository:
     def _convert_many_from_db_model(self, db_entities: List[DbEntity]):
         result = []
         for db_entity in db_entities:
-            result.append(self._conver_from_db_model(db_entity=db_entity))
+            result.append(self._convert_from_db_model(db_entity=db_entity))
         return result
 
-    def _conver_to_dto_model(self, row: Row, model: DtoEntity) -> DtoEntity:
+    def _convert_to_dto_model(self, row: Row, model: DtoEntity) -> DtoEntity:
         return model.parse_obj(dict(row._mapping)) if row is not None else None
 
     def _convert_many_to_dto_model(self, rows: List[Row], model: DtoEntity) -> List[DtoEntity]:
         result: List[DtoEntity] = []
         for row in rows:
-            result.append(self._conver_to_dto_model(row, model))
+            result.append(self._convert_to_dto_model(row, model))
         return result
 
     def session_factory(self):
@@ -62,7 +62,7 @@ class BaseRepository:
                 else session.query(self.__db_model).first()
             )
             return (
-                self._conver_from_db_model(db_entity=db_item)
+                self._convert_from_db_model(db_entity=db_item)
                 if db_item is not None and hasattr(db_item, "id")
                 else None
             )
@@ -92,7 +92,7 @@ class BaseRepository:
         with self.__session_factory() as session:
             row: Row = session.execute(script).first() if params is None else session.execute(script, params).first()
             if row is not None:
-                result = self._conver_to_dto_model(row, model)
+                result = self._convert_to_dto_model(row, model)
         return result
 
     def _base_fetch_all(self, model: DtoEntity, script: TextClause, params: Optional[dict] = None) -> List[DtoEntity]:
