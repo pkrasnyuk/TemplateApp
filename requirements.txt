@@ -3,7 +3,7 @@ dependency_injector
 fastapi
 pre-commit
 py-automapper
-pydantic==1.0.13
+pydantic==1.10.13
 pymongo
 pyodbc
 pytz
