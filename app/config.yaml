@@ -1,10 +1,10 @@
-db_connection_string: "Driver={ODBC Driver 17 for SQL Server};Server=DESKTOP-AKTLEQ8;Database=sampledb;UID=sa;PWD=klop09;Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;"
+db_connection_string: ""
 mongo:
-  connection_string: "mongodb://localhost:27017/?retryWrites=false&connectTimeoutMS=10000"
+  connection_string: ""
   database: "sampledb"
 slack:
-  webhook_url: "https://hooks.slack.com/services/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"
-  token: "xoxb-755692202805-5096311761875-JvT73F40x8pV2GBGQlQmtNjb"
+  webhook_url: ""
+  token: ""
   channel: "dev_test"
 financial_models_job:
   name: "financial models processing"

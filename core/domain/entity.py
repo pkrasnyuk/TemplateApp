@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseConfig, BaseModel
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy.orm import DeclarativeBase  # type: ignore
 
 
@@ -9,10 +9,5 @@ class DbEntity(DeclarativeBase):
 
 
 class Entity(BaseModel):
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True, from_attributes=True)
     id: Optional[int]
-
-    class Config(BaseConfig):
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        require_by_default = False
-        orm_mode = True
