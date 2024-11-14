@@ -1,4 +1,4 @@
-from pydantic import Field, validator
+from pydantic import Field, field_validator
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -22,7 +22,7 @@ class User(Entity):
     name: str = Field(max_length=32)
     api_key: str = Field(max_length=64)
 
-    @validator("name", pre=True, always=True)
+    @field_validator("name", mode="after")
     def name_alphanumeric(cls, v):
         assert v.isalnum(), "must be alphanumeric"
         return v

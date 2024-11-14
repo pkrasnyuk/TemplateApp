@@ -8,5 +8,5 @@ from core.data_transfer_objects.dto_entity import DtoEntity
 
 
 class DtoCompanyInfo(DtoEntity):
-    company: DtoCompany = Field(default_factory=None)
-    financials: List[DtoFinancials] = Field(default_factory=[])
+    company: DtoCompany = Field(default=None)
+    financials: List[DtoFinancials] = Field(default=[])

@@ -8,5 +8,5 @@ from core.data_transfer_objects.dto_entity import DtoEntity
 
 
 class DtoOrderInfo(DtoEntity):
-    order: DtoOrder = Field(default_factory=None)
-    security_prices: List[DtoSecurityPrice] = Field(default_factory=[])
+    order: DtoOrder = Field(default=None)
+    security_prices: List[DtoSecurityPrice] = Field(default=[])
