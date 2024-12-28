@@ -1,0 +1,9 @@
+coverage
+httpx
+hypothesis
+mock
+pytest
+pytest-cov
+pytest-mock
+pytest-timeout
+requests_mock
