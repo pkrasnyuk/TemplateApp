@@ -40,9 +40,9 @@ class PricingRepository(BaseRepository):
                 mapper.to(Pricing).map(
                     db_pricing,
                     fields_mapping={
-                        "date": date2datetime(dt=db_pricing.date)
-                        if db_pricing.date is not None
-                        else min_datetime().date()
+                        "date": (
+                            date2datetime(dt=db_pricing.date) if db_pricing.date is not None else min_datetime().date()
+                        )
                     },
                 )
                 if db_pricing is not None

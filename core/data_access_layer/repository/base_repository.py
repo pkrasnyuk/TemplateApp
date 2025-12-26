@@ -38,11 +38,11 @@ class BaseRepository:
             result.append(self._convert_from_db_model(db_entity=db_entity))
         return result
 
-    def _convert_to_dto_model(self, row: Row, model: DtoEntity) -> DtoEntity:
-        return model.parse_obj(dict(row._mapping)) if row is not None else None
+    def _convert_to_dto_model(self, row: Row, model: DtoEntity) -> Optional[DtoEntity]:
+        return model.model_validate(dict(row._mapping)) if row is not None else None
 
-    def _convert_many_to_dto_model(self, rows: List[Row], model: DtoEntity) -> List[DtoEntity]:
-        result: List[DtoEntity] = []
+    def _convert_many_to_dto_model(self, rows: List[Row], model: DtoEntity) -> List[Optional[DtoEntity]]:
+        result: List[Optional[DtoEntity]] = []
         for row in rows:
             result.append(self._convert_to_dto_model(row, model))
         return result
@@ -95,8 +95,10 @@ class BaseRepository:
                 result = self._convert_to_dto_model(row, model)
         return result
 
-    def _base_fetch_all(self, model: DtoEntity, script: TextClause, params: Optional[dict] = None) -> List[DtoEntity]:
-        result: List[DtoEntity] = []
+    def _base_fetch_all(
+        self, model: DtoEntity, script: TextClause, params: Optional[dict] = None
+    ) -> List[Optional[DtoEntity]]:
+        result: List[Optional[DtoEntity]] = []
         with self.__session_factory() as session:
             rows: List[Row] = (
                 session.execute(script).fetchall() if params is None else session.execute(script, params).fetchall()
